@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Variables de color por defecto (modo claro) */
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220; /* Color de inicio del fondo */
+  --background-end-rgb: 255, 255, 255;   /* Color final del fondo */
+}
+
+/* Estilos para el modo oscuro */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;    /* Color de texto en modo oscuro */
+    --background-start-rgb: 0, 0, 0;    /* Color de inicio del fondo en modo oscuro */
+    --background-end-rgb: 0, 0, 0;       /* Color final del fondo en modo oscuro */
+  }
+}
+
+/* Estilos generales del body */
+body {
+  color: rgb(var(--foreground-rgb)); /* Color del texto */
+  background: rgb(var(--background-start-rgb)); /* Fondo sólido */
+}
+
+
+/* Estilos para la barra de desplazamiento */
+::-webkit-scrollbar {
+  width: 2px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color de la pista */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #9ca3af; /* Color del pulgar */
+  border-radius: 4px; /* Bordes redondeados */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00324D; /* Color del pulgar al pasar el mouse */
+}
+
+/* Ocultar la barra de desplazamiento */
+::-webkit-scrollbar {
+  width: 0;
+}
