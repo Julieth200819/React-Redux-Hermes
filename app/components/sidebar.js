@@ -36,10 +36,10 @@ const Sidebar = ({ userRole }) => {
   const [isOpenTools, setIsOpenTools] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   
-  const role = localStorage.getItem("role");
+  const roles = localStorage.getItem("roles");
 
   useEffect(() => {
-    console.log("role: ", role
+    console.log("roles: ", roles
     )
     const savedMode = localStorage.getItem("darkMode") === "true";
     const prefersDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -200,28 +200,41 @@ const Sidebar = ({ userRole }) => {
 
   ];
 
+  // ITEMS PARA EL INVITADO //
+  const guestSidebarItems = [
+    { name: "Carnet", href: "/dashboard/cardView", icon: <FaAddressCard className="w-5 h-5" /> },
+    { name: "Mis Equipos", href: "/dashboard/equipmentView", icon: <BsLaptopFill className="w-5 h-5" /> },
+
+  ];
 
   // Determinar qué elementos del sidebar se deben renderizar según el rol del usuario
-  let sidebarItems = null;
-  
-  if(role === 'ROLE_apprentice'){
-     sidebarItems = apprenticeSidebarItems 
-  
-    }else if(role === "ROLE_SUPER ADMIN" ){
-      sidebarItems = superadminSidebarItems;
-    }else if(role === "ROLE_ADMIN" ){
-      sidebarItems = adminSidebarItems;
-    }else if(role === "ROLE_COORDINATOR"){
-      sidebarItems = coordinatorSidebarItems;
-    }else if(role === "ROLE_SEGURIDAD"){
-      sidebarItems = securityPersonSidebarItems;
-    }else if(role === "ROLE_INSTRUCTOR"){
-      sidebarItems = instructorSidebarItems;
-    }
-    else{
-     sidebarItems = apprenticeSidebarItems; 
-    }
-    
+  let sidebarItems = [];
+
+// Acumula los ítems del sidebar según los roles
+  if (roles.includes("ROLE_SUPER ADMIN")) {
+      sidebarItems = [...sidebarItems, ...superadminSidebarItems];
+  }
+  if (roles.includes("ROLE_ADMIN")) {
+      sidebarItems = [...sidebarItems, ...adminSidebarItems];
+  }
+  if (roles.includes("ROLE_COORDINADOR")) {
+      sidebarItems = [...sidebarItems, ...coordinatorSidebarItems];
+  }
+  if (roles.includes("ROLE_SEGURIDAD")) {
+      sidebarItems = [...sidebarItems, ...securityPersonSidebarItems];
+  }
+  if (roles.includes("ROLE_INSTRUCTOR")) {
+      sidebarItems = [...sidebarItems, ...instructorSidebarItems];
+  }
+  if (roles.includes("ROLE_APRENDIZ")) {
+      sidebarItems = [...sidebarItems, ...apprenticeSidebarItems];
+  }
+  if (roles.includes("ROLE_INVITADO")) {
+      sidebarItems = [...sidebarItems, ...guestSidebarItems];
+  }
+
+  // Elimina ítems duplicados si es necesario
+  sidebarItems = [...new Set(sidebarItems)];
 
   return (
     <div className={`min-h-screen overflow-y-auto shadow-xl fixed xl:static bg-white dark:bg-custom-blue w-[60%] md:w-[40%] lg:w-[30%] xl:w-auto border-r rounded-md border-gray-300 dark:border-gray-600 -left-full top-0 p-8 z-50 flex flex-col justify-between transition-all text-white ${showMenu ? "left-0" : "-left-full"}`}>

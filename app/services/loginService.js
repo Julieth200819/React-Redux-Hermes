@@ -35,10 +35,10 @@ class LoginService {
       const response = await axios.post(`${this.documentTypeApi}`, data);
 
 
-      console.log("data of login: ", response.data.role);
+      console.log("data of login: ", response.data.roles);
       // Si la respuesta contiene el JWT, se almacena en el localStorage
       if (response.data.jwt) {
-        localStorage.setItem("role", response.data.role);
+        localStorage.setItem("roles", response.data.roles);
         localStorage.setItem("token", response.data.jwt);
       }
       
